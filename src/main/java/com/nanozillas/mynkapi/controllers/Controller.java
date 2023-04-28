@@ -56,7 +56,7 @@ public class Controller {
         return (services.getTransaction(transId));
     }
 
-    @PostMapping("/{transactionsId}/confirm/{first}/{last}")
+    @PostMapping("/{transactionsId}/confirme/{first}/{last}")
     public User confirmTransaction(
             @PathVariable(value = "transactionsId") String transId,
             @PathVariable(value = "first") String firstName,
