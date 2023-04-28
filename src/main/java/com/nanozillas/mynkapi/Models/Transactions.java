@@ -12,12 +12,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="user_table")
-public class UserData implements Serializable {
+@Table(name="transactions_table")
+public class Transactions implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String transactionId;
     private String firstName;
     private String lastName;
     private long amount;
@@ -25,11 +26,9 @@ public class UserData implements Serializable {
     private String expiredTime;
     private String phone;
     private String paymentId;
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long targetUserId;
-    private String targetUserFirstName;
-    private String targetUserLastName;
+//    private String targetUserFirstName;
+//    private String targetUserLastName;
     private String targetPhone;
-
+//    private boolean confirmed;
 
 }

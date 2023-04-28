@@ -1,19 +1,15 @@
 package com.nanozillas.mynkapi.controllers;
 
-import com.nanozillas.mynkapi.Models.UserData;
+import com.nanozillas.mynkapi.Models.Transactions;
+import com.nanozillas.mynkapi.Models.User;
 import com.nanozillas.mynkapi.services.Services;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.aspectj.weaver.ast.Call;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -23,27 +19,49 @@ public class Controller {
     @Autowired
     Services services;
 
-    @RequestMapping("/")
-    public String getIndex()
-    {
-        return ("hello world!!");
-    }
+//    @RequestMapping("/")
+//    public String getIndex()
+//    {
+//        return ("index");
+//    }
 
     @RequestMapping("/api/v1/users")
-    public List<UserData> getUsers()
+    public List<User> getUsers()
     {
         return services.getAllUsers();
     }
 
     @PostMapping ("/api/v1/adduser")
-    public void addUser(@RequestBody UserData user)
+    public void addUser(@RequestBody User user)
     {
         services.addUser(user);
     }
 
-    @PostMapping ("/api/v1/send")
-    public void addUser1(@RequestBody UserData user)
+    @DeleteMapping ("/deleteall")
+    public void deleteAllUser()
     {
-        services.addUser(user);
+        services.deleteAll();
+    }
+
+    @PostMapping ("/api/v1/send")
+    public String addTransaction(@RequestBody Transactions trans)
+    {
+
+        return services.addTransactions(trans);
+    }
+
+    @GetMapping("/{transactionsId}")
+    public Optional<Transactions> getTransaction(@PathVariable(value = "transactionsId") String transId)
+    {
+        return (services.getTransaction(transId));
+    }
+
+    @PostMapping("/{transactionsId}/confirm/{first}/{last}")
+    public User confirmTransaction(
+            @PathVariable(value = "transactionsId") String transId,
+            @PathVariable(value = "first") String firstName,
+            @PathVariable(value = "last") String lastName)
+    {
+        return (services.confirmTransaction(services.getTransaction(transId), firstName, lastName));
     }
 }
