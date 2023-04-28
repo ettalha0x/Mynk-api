@@ -48,7 +48,7 @@ public class Services {
          srcUser.setBudget(srcUser.getBudget() - trans.getAmount());
          repo.saveAndFlush(srcUser);
          trans.setTransactionId(UUID.randomUUID().toString());
-         return ("http://3719b7827d39.bfdc90b8.alx-cod.online:8080"/+transactionsRepo.save(trans).getTransactionId());
+         return ("http://3719b7827d39.bfdc90b8.alx-cod.online:8080/" + transactionsRepo.save(trans).getTransactionId());
      }
 
      public Optional<Transactions> getTransaction(String transId)
